@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class Test – Financial Accounting Framework</title>
+<style>
+:root{--navy:#17365d;--blue:#2563eb;--purple:#7c3aed;--green:#15803d;--orange:#ea580c;--red:#dc2626;--bg:#eef3f8;--card:#fff;--text:#1f2937;--muted:#64748b;--line:#d9e2ec}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(135deg,#edf4ff,#f8fafc);font-family:"Segoe UI",Arial,sans-serif;color:var(--text);line-height:1.55}
+.container{max-width:1050px;margin:30px auto;padding:0 18px}
+.header{background:linear-gradient(135deg,#17365d,#2563eb);color:#fff;border-radius:18px;padding:30px;text-align:center;box-shadow:0 12px 30px rgba(23,54,93,.18)}
+.header .badge{display:inline-block;background:#ffffff22;border:1px solid #ffffff55;border-radius:30px;padding:6px 16px;font-weight:700;font-size:13px;letter-spacing:.7px}
+.header h1{margin:12px 0 5px;font-size:34px}
+.header p{margin:5px 0;color:#e7efff}
+.info{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+.info span{background:#fff;color:#17365d;padding:8px 14px;border-radius:8px;font-weight:700;font-size:14px}
+.instructions{background:#fff;border:1px solid var(--line);border-left:6px solid var(--orange);border-radius:12px;padding:18px 22px;margin:20px 0;box-shadow:0 4px 14px rgba(0,0,0,.05)}
+.instructions h3{margin:0 0 8px;color:var(--orange)}
+.question{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:20px;margin:16px 0;box-shadow:0 4px 14px rgba(15,23,42,.05);transition:.2s}
+.question:hover{transform:translateY(-1px);box-shadow:0 7px 18px rgba(15,23,42,.08)}
+.qtext{font-weight:750;color:var(--navy);font-size:17px;margin-bottom:13px}
+.qno{display:inline-flex;background:#e9efff;color:var(--blue);border-radius:7px;padding:3px 9px;margin-right:7px;font-size:14px}
+.option{display:block;border:1px solid #e1e8f0;border-radius:9px;padding:10px 12px;margin:8px 0;cursor:pointer;background:#fbfdff}
+.option:hover{background:#f1f6ff;border-color:#9bb9f7}
+.option input{margin-right:10px;accent-color:var(--blue)}
+.option:nth-child(2){border-left:4px solid #2563eb}
+.option:nth-child(3){border-left:4px solid #7c3aed}
+.option:nth-child(4){border-left:4px solid #ea580c}
+.option:nth-child(5){border-left:4px solid #15803d}
+.option-text{font-weight:600}
+.submit-wrap{position:sticky;bottom:15px;text-align:center;margin:28px 0;z-index:5}
+button{border:0;background:linear-gradient(135deg,#17365d,#2563eb);color:#fff;padding:15px 34px;border-radius:10px;font-size:17px;font-weight:800;cursor:pointer;box-shadow:0 8px 20px rgba(37,99,235,.25)}
+button:hover{transform:translateY(-1px)}
+button:disabled{background:#94a3b8;cursor:not-allowed;box-shadow:none}
+#result{display:none;background:#fff;border:2px solid #22c55e;border-radius:16px;padding:25px;text-align:center;margin:25px 0;box-shadow:0 10px 28px rgba(22,163,74,.12)}
+.score{font-size:42px;font-weight:900;color:var(--green)}
+.result-msg{font-size:18px;font-weight:700;color:var(--navy)}
+.wrong{background:#fff5f5!important;border-color:#fecaca!important}
+.correct{background:#f0fdf4!important;border-color:#bbf7d0!important}
+.answer-key{font-size:13px;color:#64748b;margin-top:8px}
+.math{font-family:Georgia,serif}
+.footer{text-align:center;color:var(--muted);font-size:13px;margin:35px 0}
+@media print{body{background:#fff}.container{max-width:none}.submit-wrap,#result{display:none!important}.question{break-inside:avoid;box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="container">
+<header class="header">
+  <div class="badge">CLASS TEST • MCQ</div>
+  <h1>Introduction to Financial Accounting Framework</h1>
+  <p>Concepts, Conventions & Postulates • Accounting as a Language • Accounting Information System • Users • Economic Development</p>
+  <div class="info">
+    <span>60 Questions</span><span>1 Mark Each</span><span>Maximum: 60 Marks</span><span>One Attempt Only</span>
+  </div>
+</header>
+
+<section class="instructions">
+<h3>Instructions for Students</h3>
+<ol>
+<li>Attempt <strong>all 60 questions</strong>.</li>
+<li>Each question carries <strong>1 mark</strong>.</li>
+<li>Only <strong>one attempt</strong> is allowed. Once you click <strong>Submit Test</strong>, the test will be locked.</li>
+<li>Select one option for each question.</li>
+<li>Your score will be displayed as <strong>Marks Obtained / 60</strong> after submission.</li>
+<li>Do not refresh the page before submitting.</li>
+</ol>
+</section>
+
+<div id="quiz"></div>
+
+<div class="submit-wrap">
+<button id="submitBtn" onclick="submitTest()">Submit Test</button>
+</div>
+
+<div id="result">
+<div class="score" id="score"></div>
+<div class="result-msg" id="message"></div>
+<p id="details"></p>
+</div>
+
+<div class="footer">Financial Accounting • Class Test • 60 Marks</div>
+</div>
+
+<script>
+const questions = [{"q": "Accounting is best described as a process of:", "o": ["Recording only cash transactions", "Identifying, recording, classifying, summarising, analysing and communicating financial information", "Preparing budgets only", "Calculating tax only"], "a": 1}, {"q": "The primary purpose of a financial accounting framework is to provide:", "o": ["Personal opinions", "A systematic basis for accounting and financial reporting", "Only tax calculations", "Only cash records"], "a": 1}, {"q": "Accounting concepts are mainly used to:", "o": ["Make accounting records consistent and meaningful", "Increase sales", "Reduce employees", "Set market prices"], "a": 0}, {"q": "Accounting conventions are generally:", "o": ["Accepted practices followed while preparing accounts", "Government taxes", "Bank loans", "Business advertisements"], "a": 0}, {"q": "An accounting postulate is best understood as:", "o": ["A basic assumption underlying accounting", "A sales invoice", "A bank statement", "A marketing plan"], "a": 0}, {"q": "The concept that treats the business separately from its owner is:", "o": ["Going concern concept", "Business entity concept", "Matching concept", "Consistency concept"], "a": 1}, {"q": "The going concern concept assumes that the business will:", "o": ["Close immediately", "Continue its operations for the foreseeable future", "Never earn profit", "Always operate at a loss"], "a": 1}, {"q": "The money measurement concept states that accounting records generally include transactions that:", "o": ["Can be expressed in monetary terms", "Are always non-financial", "Are personal in nature", "Cannot be measured"], "a": 0}, {"q": "The accounting period concept divides the life of a business into:", "o": ["Artificial time periods for reporting", "Only one period", "Only daily periods", "Only five-year periods"], "a": 0}, {"q": "The dual aspect concept is based on the idea that every transaction has:", "o": ["Only one effect", "At least two aspects or effects", "No financial effect", "Only a cash effect"], "a": 1}, {"q": "The basic accounting equation is:", "o": ["Assets = Liabilities + Capital", "Assets = Sales + Expenses", "Capital = Sales + Purchases", "Liabilities = Assets + Expenses"], "a": 0}, {"q": "The matching concept requires expenses to be matched with:", "o": ["The revenues they help generate in the relevant period", "The owner's drawings only", "Cash balances only", "Bank loans only"], "a": 0}, {"q": "The accrual concept records income and expenses when they are:", "o": ["Earned or incurred, rather than only when cash moves", "Paid only", "Received only", "Approved by a bank"], "a": 0}, {"q": "The consistency concept promotes:", "o": ["Use of consistent accounting methods from period to period", "Changing methods every month", "Avoiding all accounting records", "Recording only cash sales"], "a": 0}, {"q": "The prudence concept generally encourages accountants to:", "o": ["Exercise caution when making estimates and recognising uncertain outcomes", "Overstate profits", "Ignore losses", "Record future profits automatically"], "a": 0}, {"q": "The principle of full disclosure means that relevant information should be:", "o": ["Properly disclosed in financial reporting", "Hidden from users", "Given only to employees", "Removed from reports"], "a": 0}, {"q": "Materiality refers to whether information is important enough to:", "o": ["Influence users' decisions", "Increase office space", "Reduce salaries", "Change the business name"], "a": 0}, {"q": "Accounting as a language means accounting:", "o": ["Communicates financial information about an entity", "Uses only spoken words", "Is used only by accountants", "Has no communication role"], "a": 0}, {"q": "The language of business is commonly associated with:", "o": ["Accounting", "Advertising", "Production", "Human resources"], "a": 0}, {"q": "Accounting communicates information primarily through:", "o": ["Financial statements and reports", "Personal conversations only", "Product packaging", "Social media posts only"], "a": 0}, {"q": "Which is an example of accounting information?", "o": ["Profit earned during a period", "Colour of office walls", "Employee's favourite food", "Office location alone"], "a": 0}, {"q": "Which statement best explains accounting as an information system?", "o": ["It collects, processes, stores and communicates financial information", "It only records invoices", "It only prepares tax returns", "It only counts cash"], "a": 0}, {"q": "The first stage of an accounting information system is generally:", "o": ["Input or collection of data", "Final decision", "Audit conclusion", "Profit distribution"], "a": 0}, {"q": "In an accounting information system, raw transaction details are called:", "o": ["Data", "Policy", "Strategy", "Forecast"], "a": 0}, {"q": "Processed data that is useful for decision-making is called:", "o": ["Information", "Inventory", "Capital", "Voucher"], "a": 0}, {"q": "Which sequence best represents an accounting information system?", "o": ["Transactions → Data → Processing → Information → Decision", "Decision → Transaction → Data → Sale", "Profit → Purchase → Data → Decision", "Report → Cash → Transaction → Data"], "a": 0}, {"q": "Storage in an accounting information system means:", "o": ["Keeping accounting information for future use", "Destroying old records immediately", "Increasing sales", "Approving loans"], "a": 0}, {"q": "Feedback in an accounting information system helps management to:", "o": ["Take corrective or future actions", "Record personal expenses", "Avoid all reports", "Stop accounting"], "a": 0}, {"q": "Which is an output of an accounting information system?", "o": ["Income statement", "Raw purchase invoice only", "Blank voucher", "Employee ID card"], "a": 0}, {"q": "Which of the following is a source of accounting data?", "o": ["Sales invoice", "Office decoration", "Company logo", "Employee uniform"], "a": 0}, {"q": "Users of accounting information include:", "o": ["Internal and external stakeholders", "Only accountants", "Only customers", "Only government officials"], "a": 0}, {"q": "Which is an internal user of accounting information?", "o": ["Management", "Bank lender", "Government", "Supplier"], "a": 0}, {"q": "Which is an external user of accounting information?", "o": ["Investor", "Production manager", "Department head", "Sales manager"], "a": 0}, {"q": "Management uses accounting information mainly for:", "o": ["Planning, control and decision-making", "Entertainment", "Personal shopping", "Office decoration"], "a": 0}, {"q": "Investors are interested in accounting information mainly to assess:", "o": ["Performance and financial position", "Employee attendance only", "Office furniture", "Product colour"], "a": 0}, {"q": "Banks may use accounting information to assess a firm's:", "o": ["Ability to repay loans", "Advertising design", "Employee hobbies", "Office timings"], "a": 0}, {"q": "Government may use accounting information for:", "o": ["Taxation and regulatory purposes", "Selecting office furniture", "Employee recreation", "Product packaging"], "a": 0}, {"q": "Suppliers may examine accounting information to assess:", "o": ["The business's ability to pay its dues", "The owner's hobbies", "The colour of products", "Employee uniforms"], "a": 0}, {"q": "Which report primarily communicates a company's financial position at a point in time?", "o": ["Balance Sheet", "Sales advertisement", "Attendance sheet", "Purchase order"], "a": 0}, {"q": "Which report primarily communicates financial performance for a period?", "o": ["Income Statement", "Employee register", "Purchase order", "Stock label"], "a": 0}, {"q": "Cash flow information is concerned mainly with:", "o": ["Cash inflows and outflows", "Employee birthdays", "Product design", "Market slogans"], "a": 0}, {"q": "A trial balance is prepared mainly to:", "o": ["List ledger balances and help check arithmetical accuracy", "Calculate market share", "Set product prices automatically", "Prepare advertisements"], "a": 0}, {"q": "Which characteristic makes accounting information useful for a specific decision?", "o": ["Relevance", "Decoration", "Popularity", "Colour"], "a": 0}, {"q": "Timely accounting information means information is available:", "o": ["When it is needed for decisions", "Only after many years", "Only at business closure", "Only after an audit"], "a": 0}, {"q": "Comparable information helps users compare:", "o": ["Periods, departments or entities", "Only employee names", "Only office locations", "Only product colours"], "a": 0}, {"q": "Understandable accounting information should be:", "o": ["Presented clearly enough for users to understand", "Deliberately confusing", "Only verbal", "Hidden from users"], "a": 0}, {"q": "Verifiable information can be:", "o": ["Checked against supporting evidence", "Changed without evidence", "Ignored by auditors", "Created without records"], "a": 0}, {"q": "Faithful representation means information should:", "o": ["Represent the underlying economic events appropriately", "Always show a profit", "Ignore liabilities", "Exclude expenses"], "a": 0}, {"q": "Which of the following is NOT normally a purpose of accounting?", "o": ["Providing useful information for decisions", "Maintaining financial records", "Measuring performance", "Designing company uniforms"], "a": 3}, {"q": "Economic development can be supported by accounting because accounting information helps:", "o": ["Businesses and other users make informed economic decisions", "Eliminate all business risks", "Guarantee profits", "Remove competition"], "a": 0}, {"q": "Accounting contributes to economic development by improving:", "o": ["Financial transparency and accountability", "Only office decoration", "Only advertising", "Only employee recreation"], "a": 0}, {"q": "Reliable accounting information can help investors:", "o": ["Evaluate investment opportunities", "Avoid reading reports", "Guarantee returns", "Set employee salaries"], "a": 0}, {"q": "Accurate accounting information can help management:", "o": ["Control costs and evaluate performance", "Avoid all business decisions", "Eliminate all expenses", "Stop preparing reports"], "a": 0}, {"q": "Which statement about accounting is correct?", "o": ["Accounting is broader than mere transaction recording", "Accounting only means bookkeeping", "Accounting is only tax calculation", "Accounting is only cash counting"], "a": 0}, {"q": "Which statement about accounting information is correct?", "o": ["It should help users make informed decisions", "It should always be confidential from all users", "It should contain only sales figures", "It should never be compared"], "a": 0}, {"q": "A company records sales of ₹10 lakh and expenses of ₹8 lakh. The accounting information can help determine:", "o": ["Profit of ₹2 lakh", "Loss of ₹18 lakh", "Sales of ₹2 lakh", "Capital of ₹8 lakh"], "a": 0}, {"q": "A manager uses monthly cost reports to identify rising expenses. This is an example of accounting supporting:", "o": ["Control and decision-making", "Product packaging", "Personal finance only", "Advertising design"], "a": 0}, {"q": "A bank reviews a firm's financial statements before granting a loan. This shows accounting information is useful to:", "o": ["External users", "Only employees", "Only production workers", "Only customers"], "a": 0}, {"q": "Accounting information can support economic development by helping capital flow toward:", "o": ["More informed and potentially productive uses", "Only non-business activities", "Only personal expenses", "Only office decoration"], "a": 0}, {"q": "The overall role of accounting can best be summarised as:", "o": ["Providing useful financial information for planning, control and decisions", "Recording transactions without any purpose", "Preparing advertisements", "Managing employee holidays"], "a": 0}];
+
+function renderQuiz(){
+  const quiz=document.getElementById("quiz");
+  quiz.innerHTML=questions.map((item,i)=>{
+    const letters=["A","B","C","D"];
+    return `<div class="question" id="question-${i}">
+      <div class="qtext"><span class="qno">Q${i+1}</span>${item.q}</div>
+      ${item.o.map((opt,j)=>`
+        <label class="option">
+          <input type="radio" name="q${i}" value="${j}">
+          <span class="option-text"><b>${letters[j]}.</b> ${opt}</span>
+        </label>`).join("")}
+    </div>`;
+  }).join("");
+}
+
+function submitTest(){
+  const submitBtn=document.getElementById("submitBtn");
+  if(submitBtn.disabled) return;
+
+  let score=0, attempted=0;
+
+  questions.forEach((item,i)=>{
+    const selected=document.querySelector(`input[name="q${i}"]:checked`);
+    const card=document.getElementById(`question-${i}`);
+    card.querySelectorAll(".option").forEach(x=>x.classList.remove("correct","wrong"));
+
+    if(selected){
+      attempted++;
+      const chosen=Number(selected.value);
+      if(chosen===item.a){
+        score++;
+        card.classList.add("correct");
+      } else {
+        card.classList.add("wrong");
+      }
+    }
+  });
+
+  // Show result
+  document.getElementById("result").style.display="block";
+  document.getElementById("score").textContent=`${score} / 60`;
+  document.getElementById("details").textContent=`Marks obtained: ${score} out of 60 • Attempted: ${attempted} out of 60 • Unattempted: ${60-attempted}`;
+
+  let msg="";
+  if(score>=54) msg="Excellent performance! 🌟";
+  else if(score>=45) msg="Very good! Keep it up. 👍";
+  else if(score>=36) msg="Good effort. Revise the concepts once more.";
+  else if(score>=24) msg="Fair attempt. More revision will help.";
+  else msg="Keep practising and revise the basic concepts.";
+
+  document.getElementById("message").textContent=msg;
+
+  // Lock the test permanently for this page session
+  document.querySelectorAll("input").forEach(x=>x.disabled=true);
+  submitBtn.disabled=true;
+  submitBtn.textContent="Test Submitted • Attempt Locked";
+  document.getElementById("result").scrollIntoView({behavior:"smooth",block:"center"});
+}
+
+renderQuiz();
+</script>
+</body>
+</html>
