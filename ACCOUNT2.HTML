@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Accounting Systems - Class Test</title>
+
+<style>
+:root{
+    --blue:#17365d;
+    --lightblue:#2878c8;
+    --purple:#6f42c1;
+    --green:#198754;
+    --orange:#e67e22;
+    --red:#c0392b;
+    --text:#243447;
+    --border:#d9e2ec;
+    --paper:#fffdf8;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    background:linear-gradient(135deg,#eef4fb,#fff7ef);
+    color:var(--text);
+    font-family:"Cambria","Times New Roman",serif;
+    line-height:1.55;
+}
+
+.container{
+    max-width:1000px;
+    margin:30px auto;
+    padding:0 18px 40px;
+}
+
+.paper{
+    background:var(--paper);
+    border:1px solid #d8dee8;
+    border-radius:18px;
+    box-shadow:0 10px 35px rgba(32,55,80,.12);
+    overflow:hidden;
+}
+
+/* ================= HEADER ================= */
+
+.header{
+    padding:30px 35px 24px;
+    text-align:center;
+    background:linear-gradient(135deg,#17365d,#2878c8);
+    color:white;
+}
+
+.header .small-title{
+    font-size:14px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+}
+
+.header h1{
+    margin:8px 0;
+    font-size:30px;
+}
+
+.header .subtitle{
+    font-size:18px;
+    color:#eaf4ff;
+}
+
+.line{
+    width:75%;
+    height:2px;
+    background:white;
+    margin:15px auto 0;
+    opacity:.7;
+}
+
+/* ================= INFO ================= */
+
+.info{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    padding:18px 26px;
+    background:#f3f7fc;
+    border-bottom:1px solid var(--border);
+}
+
+.info-box{
+    padding:12px;
+    text-align:center;
+    border:1px solid #dce6f1;
+    border-radius:10px;
+    background:white;
+    font-weight:bold;
+    color:var(--blue);
+}
+
+/* ================= INSTRUCTIONS ================= */
+
+.instructions{
+    margin:22px 26px;
+    padding:17px 20px;
+    border-left:5px solid var(--orange);
+    background:#fff6e9;
+    border-radius:8px;
+}
+
+.instructions h2{
+    margin:0 0 7px;
+    color:#b35b00;
+    font-size:20px;
+}
+
+.instructions ul{
+    margin:5px 0 0 20px;
+}
+
+/* ================= QUESTIONS ================= */
+
+.questions{
+    padding:0 26px 20px;
+}
+
+.question{
+    margin:18px 0;
+    padding:18px 20px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:white;
+    page-break-inside:avoid;
+}
+
+.question:nth-child(4n+1){
+    border-left:5px solid var(--lightblue);
+}
+
+.question:nth-child(4n+2){
+    border-left:5px solid var(--purple);
+}
+
+.question:nth-child(4n+3){
+    border-left:5px solid var(--green);
+}
+
+.question:nth-child(4n){
+    border-left:5px solid var(--orange);
+}
+
+.question-text{
+    font-size:17px;
+    font-weight:bold;
+    text-align:justify;
+    margin-bottom:12px;
+}
+
+.number{
+    color:var(--red);
+    font-weight:800;
+    margin-right:6px;
+}
+
+.marks{
+    float:right;
+    font-size:13px;
+    padding:3px 9px;
+    border-radius:20px;
+    background:#edf2f7;
+    color:#566573;
+}
+
+.option{
+    display:block;
+    padding:9px 11px;
+    margin:6px 0;
+    border-radius:7px;
+    cursor:pointer;
+    border:1px solid transparent;
+}
+
+.option:hover{
+    background:#f2f7fc;
+    border-color:#c8d9eb;
+}
+
+.option input{
+    margin-right:8px;
+    transform:scale(1.12);
+    accent-color:#2878c8;
+}
+
+.letter{
+    font-weight:bold;
+    color:var(--purple);
+}
+
+/* ================= BUTTON ================= */
+
+.submit-area{
+    text-align:center;
+    padding:28px;
+    background:#f6f9fc;
+    border-top:1px solid var(--border);
+}
+
+button{
+    border:0;
+    padding:14px 38px;
+    font-size:18px;
+    font-family:inherit;
+    font-weight:bold;
+    border-radius:30px;
+    color:white;
+    background:linear-gradient(135deg,#17365d,#2878c8);
+    cursor:pointer;
+    box-shadow:0 5px 14px rgba(40,120,200,.25);
+}
+
+button:hover{
+    transform:translateY(-1px);
+}
+
+button:disabled{
+    opacity:.55;
+    cursor:not-allowed;
+}
+
+/* ================= RESULT ================= */
+
+#result{
+    display:none;
+    margin:22px auto 0;
+    max-width:650px;
+    padding:22px;
+    border-radius:14px;
+    background:white;
+    border:2px solid #2878c8;
+}
+
+.score{
+    font-size:32px;
+    font-weight:800;
+    color:var(--green);
+}
+
+.percentage{
+    font-size:20px;
+    margin-top:5px;
+    font-weight:bold;
+}
+
+.result-details{
+    margin-top:10px;
+    font-size:16px;
+}
+
+.correct{
+    background:#eaf8f0 !important;
+    border-color:#9bd7b3 !important;
+}
+
+.wrong{
+    background:#fff0ef !important;
+    border-color:#e7aaa5 !important;
+}
+
+.unanswered{
+    background:#fff8e8 !important;
+    border-color:#f0cf86 !important;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    text-align:center;
+    padding:17px;
+    color:#687684;
+    font-size:13px;
+    background:#fbfcfe;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:700px){
+
+    .info{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .header{
+        padding:23px 15px;
+    }
+
+    .header h1{
+        font-size:24px;
+    }
+
+    .header .subtitle{
+        font-size:16px;
+    }
+
+    .questions{
+        padding:0 14px 15px;
+    }
+
+    .instructions{
+        margin:18px 14px;
+    }
+
+    .question{
+        padding:15px;
+    }
+
+    .marks{
+        float:none;
+        display:inline-block;
+        margin-left:7px;
+    }
+}
+
+@media print{
+
+    body{
+        background:white;
+    }
+
+    .paper{
+        box-shadow:none;
+        border:0;
+    }
+
+    button,
+    .submit-area{
+        display:none;
+    }
+
+    .question{
+        break-inside:avoid;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<div class="container">
+
+<div class="paper">
+
+<!-- ================= HEADER ================= -->
+
+<div class="header">
+
+    <div class="small-title">
+        Class Test • FCBM • Accounting Fundamentals
+    </div>
+
+    <h1>
+        Accounting Systems and Transaction Processing
+    </h1>
+
+    <div class="subtitle">
+        Accounting Equation, Transactions & Classification of Accounts
+    </div>
+
+    <div class="line"></div>
+
+</div>
+
+
+<!-- ================= TEST INFORMATION ================= -->
+
+<div class="info">
+
+    <div class="info-box">
+        Total Questions<br>
+        <strong>60</strong>
+    </div>
+
+    <div class="info-box">
+        Marks / Question<br>
+        <strong>1</strong>
+    </div>
+
+    <div class="info-box">
+        Maximum Marks<br>
+        <strong>60</strong>
+    </div>
+
+    <div class="info-box">
+        Attempt<br>
+        <strong>Only Once</strong>
+    </div>
+
+</div>
+
+
+<!-- ================= INSTRUCTIONS ================= -->
+
+<div class="instructions">
+
+<h2>Instructions</h2>
+
+<ul>
+
+<li>
+There are <strong>60 multiple-choice questions</strong>.
+</li>
+
+<li>
+Each question carries <strong>1 mark</strong>.
+</li>
+
+<li>
+Maximum marks are <strong>60</strong>.
+</li>
+
+<li>
+Select <strong>one option only</strong> for each question.
+</li>
+
+<li>
+The student gets <strong>only one attempt</strong>.
+</li>
+
+<li>
+After clicking <strong>Submit Test</strong>, the test will be locked.
+</li>
+
+<li>
+Unanswered questions will receive <strong>0 marks</strong>.
+</li>
+
+</ul>
+
+</div>
+
+
+<!-- ================= QUESTIONS ================= -->
+
+<form id="quizForm">
+
+<div class="questions" id="questionsContainer"></div>
+
+
+<!-- ================= SUBMIT ================= -->
+
+<div class="submit-area">
+
+<button
+    type="button"
+    id="submitBtn"
+    onclick="submitTest()">
+    Submit Test
+</button>
+
+
+<div id="result">
+
+    <div class="score" id="scoreText"></div>
+
+    <div class="percentage" id="percentageText"></div>
+
+    <div class="result-details" id="resultDetails"></div>
+
+</div>
+
+</div>
+
+</form>
+
+
+<footer>
+Accounting Systems and Transaction Processing
+<br>
+Class Test • 60 Questions × 1 Mark = 60 Marks
+</footer>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   60 MCQs
+========================================================= */
+
+const questions = [
+
+{
+q:"Accounting is best described as the process of:",
+o:[
+"Recording, classifying, summarising and interpreting financial transactions",
+"Only recording cash transactions",
+"Only preparing tax returns",
+"Only calculating profit"
+],
+a:0
+},
+
+{
+q:"A transaction is an event that:",
+o:[
+"Has no financial effect",
+"Has a financial effect on the business and can be measured in money",
+"Always involves cash",
+"Always increases capital"
+],
+a:1
+},
+
+{
+q:"Which of the following is an example of a business transaction?",
+o:[
+"Owner's personal dinner",
+"Increase in market price of land",
+"Purchase of goods for ₹20,000",
+"Employee's personal purchase"
+],
+a:2
+},
+
+{
+q:"The accounting equation is:",
+o:[
+"Assets = Capital − Liabilities",
+"Assets = Liabilities + Capital",
+"Capital = Assets + Liabilities",
+"Liabilities = Assets + Capital"
+],
+a:1
+},
+
+{
+q:"If assets are ₹5,00,000 and liabilities are ₹2,00,000, capital will be:",
+o:[
+"₹7,00,000",
+"₹3,00,000",
+"₹2,00,000",
+"₹5,00,000"
+],
+a:1
+},
+
+{
+q:"An increase in an asset account is generally recorded on the:",
+o:[
+"Credit side",
+"Debit side",
+"Both sides",
+"Neither side"
+],
+a:1
+},
+
+{
+q:"An increase in a liability account is generally recorded on the:",
+o:[
+"Debit side",
+"Credit side",
+"Both sides",
+"None of these"
+],
+a:1
+},
+
+{
+q:"When the owner introduces cash into the business, the effect is:",
+o:[
+"Assets decrease and capital decreases",
+"Assets increase and capital increases",
+"Assets increase and liabilities decrease",
+"Capital decreases and liabilities increase"
+],
+a:1
+},
+
+{
+q:"Purchase of furniture for cash will:",
+o:[
+"Increase furniture and decrease cash",
+"Increase cash and decrease furniture",
+"Increase capital and cash",
+"Decrease assets only"
+],
+a:0
+},
+
+{
+q:"Payment of a creditor in cash will:",
+o:[
+"Increase cash and liabilities",
+"Decrease cash and liabilities",
+"Increase assets and capital",
+"Decrease capital only"
+],
+a:1
+},
+
+{
+q:"Revenue is best defined as:",
+o:[
+"Amount invested by the owner",
+"Income earned from business activities",
+"Amount payable to creditors",
+"Cash withdrawn by the owner"
+],
+a:1
+},
+
+{
+q:"An expense is:",
+o:[
+"A resource or cost consumed in earning revenue",
+"An amount invested by the owner",
+"A liability owed to the bank only",
+"A type of asset"
+],
+a:0
+},
+
+{
+q:"Which of the following is a revenue for a service business?",
+o:[
+"Salary paid",
+"Rent paid",
+"Consultancy fees earned",
+"Office furniture purchased"
+],
+a:2
+},
+
+{
+q:"Which of the following is an expense?",
+o:[
+"Sales revenue",
+"Commission received",
+"Rent paid",
+"Capital introduced"
+],
+a:2
+},
+
+{
+q:"Owner's equity represents:",
+o:[
+"The owner's claim on the assets of the business",
+"Only cash available",
+"Amounts owed to suppliers",
+"Total expenses"
+],
+a:0
+},
+
+{
+q:"Liabilities are:",
+o:[
+"Resources owned by the business",
+"Claims of outsiders against the business",
+"Owner's drawings",
+"Business revenues"
+],
+a:1
+},
+
+{
+q:"Which one is a current asset?",
+o:[
+"Building",
+"Machinery",
+"Cash",
+"Long-term investment"
+],
+a:2
+},
+
+{
+q:"Which one is a non-current asset?",
+o:[
+"Cash",
+"Trade receivables",
+"Inventory",
+"Building"
+],
+a:3
+},
+
+{
+q:"Trade payables are classified as:",
+o:[
+"Assets",
+"Liabilities",
+"Expenses",
+"Revenue"
+],
+a:1
+},
+
+{
+q:"Trade receivables are classified as:",
+o:[
+"Assets",
+"Liabilities",
+"Capital",
+"Expenses"
+],
+a:0
+},
+
+{
+q:"Drawings by the owner cause:",
+o:[
+"Increase in capital",
+"Decrease in capital",
+"Increase in liabilities",
+"Increase in revenue"
+],
+a:1
+},
+
+{
+q:"If the owner withdraws cash for personal use, the business records it as:",
+o:[
+"Revenue",
+"Expense",
+"Drawings",
+"Liability"
+],
+a:2
+},
+
+{
+q:"A credit purchase of goods causes:",
+o:[
+"Increase in purchases and increase in payables",
+"Decrease in purchases and increase in cash",
+"Increase in cash and capital",
+"Decrease in liabilities"
+],
+a:0
+},
+
+{
+q:"A cash sale of goods causes:",
+o:[
+"Increase in cash and sales revenue",
+"Decrease in cash and sales revenue",
+"Increase in liabilities",
+"Decrease in capital"
+],
+a:0
+},
+
+{
+q:"When goods are returned to a supplier, the transaction is called:",
+o:[
+"Sales return",
+"Purchase return",
+"Drawings",
+"Capital expenditure"
+],
+a:1
+},
+
+{
+q:"When a customer returns goods to the business, it is called:",
+o:[
+"Purchase return",
+"Sales return",
+"Cash purchase",
+"Capital receipt"
+],
+a:1
+},
+
+{
+q:"The main purpose of an accounting system is to:",
+o:[
+"Eliminate all business risks",
+"Provide useful financial information for decision-making",
+"Increase sales automatically",
+"Avoid recording transactions"
+],
+a:1
+},
+
+{
+q:"Transaction processing in accounting means:",
+o:[
+"Ignoring source documents",
+"Capturing and processing financial transaction data",
+"Only preparing annual reports",
+"Only calculating taxes"
+],
+a:1
+},
+
+{
+q:"A source document provides:",
+o:[
+"Evidence of a transaction",
+"A forecast of future sales",
+"Only employee information",
+"A list of business goals"
+],
+a:0
+},
+
+{
+q:"Which is a source document for a credit sale?",
+o:[
+"Sales invoice",
+"Salary register",
+"Bank passbook only",
+"Purchase order from another business"
+],
+a:0
+},
+
+{
+q:"A cash memo is commonly used as evidence of:",
+o:[
+"Cash transactions",
+"Only credit transactions",
+"Only non-financial events",
+"Owner's personal transactions"
+],
+a:0
+},
+
+{
+q:"A voucher is mainly used to:",
+o:[
+"Provide evidence and authorisation for a transaction",
+"Calculate market share",
+"Predict exchange rates",
+"Measure employee satisfaction"
+],
+a:0
+},
+
+{
+q:"The first step in processing a transaction is generally to:",
+o:[
+"Identify and analyse the transaction",
+"Prepare final accounts",
+"Close the books",
+"Calculate depreciation"
+],
+a:0
+},
+
+{
+q:"The accounting cycle begins with:",
+o:[
+"Identification of transactions",
+"Preparation of balance sheet",
+"Closing entries",
+"Audit report"
+],
+a:0
+},
+
+{
+q:"The accounting equation must remain balanced because:",
+o:[
+"Every transaction has equal effects on the two sides of the equation",
+"Assets never change",
+"Liabilities never change",
+"Capital is always zero"
+],
+a:0
+},
+
+{
+q:"If a business purchases equipment on credit, the effect is:",
+o:[
+"Assets increase and liabilities increase",
+"Assets decrease and liabilities decrease",
+"Capital increases and assets decrease",
+"Revenue increases and cash decreases"
+],
+a:0
+},
+
+{
+q:"If the business earns revenue in cash, the effect is:",
+o:[
+"Cash increases and capital/equity increases",
+"Cash decreases and capital decreases",
+"Liabilities increase",
+"Assets decrease"
+],
+a:0
+},
+
+{
+q:"If an expense is paid in cash, the effect is:",
+o:[
+"Cash decreases and capital/equity decreases",
+"Cash increases and capital increases",
+"Liabilities increase and cash increases",
+"Assets increase"
+],
+a:0
+},
+
+{
+q:"Which transaction affects only the asset side of the accounting equation?",
+o:[
+"Purchase of furniture for cash",
+"Credit purchase of goods",
+"Owner introduces capital",
+"Payment to creditor"
+],
+a:0
+},
+
+{
+q:"Which transaction increases one asset and decreases another asset?",
+o:[
+"Purchase of furniture for cash",
+"Credit purchase of goods",
+"Cash received from bank loan",
+"Owner introduces cash"
+],
+a:0
+},
+
+{
+q:"Which of the following increases both assets and liabilities?",
+o:[
+"Cash purchase of goods",
+"Credit purchase of equipment",
+"Payment of salary",
+"Owner's drawings"
+],
+a:1
+},
+
+{
+q:"Which of the following decreases both assets and liabilities?",
+o:[
+"Taking a bank loan",
+"Payment to a creditor in cash",
+"Cash sales",
+"Credit purchase"
+],
+a:1
+},
+
+{
+q:"The accounting classification of owner's capital is:",
+o:[
+"Asset",
+"Liability/equity claim",
+"Expense",
+"Revenue"
+],
+a:1
+},
+
+{
+q:"Which account represents an economic resource controlled by a business?",
+o:[
+"Asset account",
+"Expense account",
+"Revenue account",
+"Drawings account"
+],
+a:0
+},
+
+{
+q:"Which account normally has a debit balance?",
+o:[
+"Asset account",
+"Liability account",
+"Capital account",
+"Revenue account"
+],
+a:0
+},
+
+{
+q:"Which account normally has a credit balance?",
+o:[
+"Cash account",
+"Furniture account",
+"Revenue account",
+"Purchases account"
+],
+a:2
+},
+
+{
+q:"Expenses normally have:",
+o:[
+"Debit balances",
+"Credit balances",
+"No balances",
+"Only memorandum balances"
+],
+a:0
+},
+
+{
+q:"Revenues normally have:",
+o:[
+"Debit balances",
+"Credit balances",
+"Both debit and credit balances",
+"No balance"
+],
+a:1
+},
+
+{
+q:"A business receives ₹10,000 from a debtor. The effect is:",
+o:[
+"Cash increases and receivables decrease",
+"Cash decreases and receivables increase",
+"Capital increases and cash decreases",
+"Liabilities increase"
+],
+a:0
+},
+
+{
+q:"A business pays ₹8,000 to a supplier. The effect is:",
+o:[
+"Cash increases and payables increase",
+"Cash decreases and payables decrease",
+"Cash increases and capital decreases",
+"Receivables decrease"
+],
+a:1
+},
+
+{
+q:"The purchase of an office building for business use is generally classified as:",
+o:[
+"Revenue expenditure",
+"Capital expenditure",
+"Drawing",
+"Revenue"
+],
+a:1
+},
+
+{
+q:"Money received from the owner as additional capital is:",
+o:[
+"Revenue",
+"Capital contribution",
+"Expense",
+"Trade payable"
+],
+a:1
+},
+
+{
+q:"Which is NOT an accounting transaction?",
+o:[
+"Payment of office rent",
+"Purchase of goods",
+"Change in the personal wealth of the owner unrelated to business",
+"Receipt from a customer"
+],
+a:2
+},
+
+{
+q:"The classification of accounts helps in:",
+o:[
+"Applying appropriate accounting rules and recording transactions correctly",
+"Avoiding all business transactions",
+"Increasing cash without sales",
+"Removing the need for documents"
+],
+a:0
+},
+
+{
+q:"Which item is classified as owner's equity?",
+o:[
+"Capital",
+"Trade payable",
+"Bank overdraft",
+"Inventory"
+],
+a:0
+},
+
+{
+q:"Which item is classified as revenue?",
+o:[
+"Sales",
+"Furniture",
+"Loan",
+"Capital"
+],
+a:0
+},
+
+{
+q:"Which item is classified as an expense?",
+o:[
+"Insurance paid",
+"Capital introduced",
+"Loan received",
+"Sales"
+],
+a:0
+},
+
+{
+q:"If capital is ₹4,00,000 and liabilities are ₹1,50,000, total assets are:",
+o:[
+"₹2,50,000",
+"₹4,00,000",
+"₹5,50,000",
+"₹6,00,000"
+],
+a:2
+},
+
+{
+q:"If assets increase by ₹30,000 while liabilities remain unchanged, owner's equity will:",
+o:[
+"Decrease by ₹30,000",
+"Increase by ₹30,000",
+"Remain unchanged",
+"Become zero"
+],
+a:1
+},
+
+{
+q:"If liabilities increase by ₹20,000 while assets remain unchanged, owner's equity will:",
+o:[
+"Increase by ₹20,000",
+"Decrease by ₹20,000",
+"Remain unchanged",
+"Double"
+],
+a:1
+}
+
+];
+
+
+/* =========================================================
+   CREATE QUESTIONS ON PAGE
+========================================================= */
+
+const container =
+document.getElementById("questionsContainer");
+
+questions.forEach((item,index)=>{
+
+    const qNo=index+1;
+
+    const div=document.createElement("div");
+
+    div.className="question";
+
+    div.id="q"+qNo;
+
+    let html=`
+
+        <div class="question-text">
+
+            <span class="number">
+                ${qNo}.
+            </span>
+
+            ${item.q}
+
+            <span class="marks">
+                1 Mark
+            </span>
+
+        </div>
+    `;
+
+    item.o.forEach((option,optionIndex)=>{
+
+        const letter=
+            String.fromCharCode(65+optionIndex);
+
+        html+=`
+
+        <label
+            class="option"
+            id="q${qNo}${letter}"
+        >
+
+            <input
+                type="radio"
+                name="q${qNo}"
+                value="${optionIndex}"
+            >
+
+            <span class="letter">
+                (${letter})
+            </span>
+
+            ${option}
+
+        </label>
+
+        `;
+
+    });
+
+    div.innerHTML=html;
+
+    container.appendChild(div);
+
+});
+
+
+/* =========================================================
+   SUBMIT TEST
+========================================================= */
+
+function submitTest(){
+
+    /*
+       Check whether test was already submitted.
+    */
+
+    if(
+        localStorage.getItem(
+            "accounting_test_submitted"
+        )==="yes"
+    ){
+
+        alert(
+            "This test has already been submitted on this browser. The attempt is locked."
+        );
+
+        return;
+    }
+
+
+    let score=0;
+
+    let attempted=0;
+
+
+    /*
+       Check every question.
+    */
+
+    questions.forEach((item,index)=>{
+
+        const qNo=index+1;
+
+        const selected=
+            document.querySelector(
+                `input[name="q${qNo}"]:checked`
+            );
+
+
+        if(selected){
+
+            attempted++;
+
+            const selectedAnswer=
+                Number(selected.value);
+
+
+            /*
+               Correct answer
+            */
+
+            if(
+                selectedAnswer===item.a
+            ){
+
+                score++;
+
+                document
+                .getElementById(
+                    `q${qNo}${String.fromCharCode(65+item.a)}`
+                )
+                .classList.add("correct");
+
+            }
+
+
+            /*
+               Wrong answer
+            */
+
+            else{
+
+                document
+                .getElementById(
+                    `q${qNo}${String.fromCharCode(65+selectedAnswer)}`
+                )
+                .classList.add("wrong");
+
+
+                /*
+                   Show correct answer.
+                */
+
+                document
+                .getElementById(
+                    `q${qNo}${String.fromCharCode(65+item.a)}`
+                )
+                .classList.add("correct");
+
+            }
+
+        }
+
+
+        /*
+           Unanswered
+        */
+
+        else{
+
+            document
+            .getElementById(`q${qNo}`)
+            .classList.add("unanswered");
+
+
+            document
+            .getElementById(
+                `q${qNo}${String.fromCharCode(65+item.a)}`
+            )
+            .classList.add("correct");
+
+        }
+
+    });
+
+
+    const total=questions.length;
+
+    const percentage=
+        ((score/total)*100).toFixed(2);
+
+    const incorrect=
+        attempted-score;
+
+    const unanswered=
+        total-attempted;
+
+
+    /*
+       Display result.
+    */
+
+    document
+    .getElementById("scoreText")
+    .innerHTML=
+        `Your Score: ${score} / ${total}`;
+
+
+    document
+    .getElementById("percentageText")
+    .innerHTML=
+        `Percentage: ${percentage}%`;
+
+
+    document
+    .getElementById("resultDetails")
+    .innerHTML=`
+
+        <strong>Test Result</strong>
+
+        <br><br>
+
+        Total Questions:
+        <strong>${total}</strong>
+
+        <br>
+
+        Attempted:
+        <strong>${attempted}</strong>
+
+        <br>
+
+        Correct:
+        <strong>${score}</strong>
+
+        <br>
+
+        Incorrect:
+        <strong>${incorrect}</strong>
+
+        <br>
+
+        Unanswered:
+        <strong>${unanswered}</strong>
+
+        <br>
+
+        Total Marks:
+        <strong>${score} / ${total}</strong>
+
+    `;
+
+
+    document
+    .getElementById("result")
+    .style.display="block";
+
+
+    /*
+       Disable submit button.
+    */
+
+    const button=
+        document.getElementById("submitBtn");
+
+    button.disabled=true;
+
+    button.innerHTML=
+        "Test Submitted — Attempt Locked";
+
+
+    /*
+       Disable all radio buttons.
+    */
+
+    document
+    .querySelectorAll(
+        'input[type="radio"]'
+    )
+    .forEach(input=>{
+        input.disabled=true;
+    });
+
+
+    /*
+       Save submission status.
+
+       This prevents another attempt
+       on the same browser/device.
+    */
+
+    localStorage.setItem(
+        "accounting_test_submitted",
+        "yes"
+    );
+
+
+    /*
+       Scroll to result.
+    */
+
+    document
+    .getElementById("result")
+    .scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+    });
+
+}
+
+</script>
+
+</body>
+</html>
